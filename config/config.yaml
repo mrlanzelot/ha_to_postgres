@@ -1,0 +1,40 @@
+# -----------------------------------------------------------------------------
+# Entity configuration
+# Each entry defines:
+#   - entity_id: Home Assistant entity
+#   - value_attribute: which field to read ("state" or an attribute)
+#   - unit_attribute: attribute providing the unit-of-measurement
+# -----------------------------------------------------------------------------
+sensors:
+  metrics:
+    - entity_id: "weather.smhi_home"
+      value_attribute: "temperature"
+      unit_attribute: "temperature_unit"
+
+    - entity_id: "sensor.last_perific_last_energy_total"
+      value_attribute: "state"
+      unit_attribute: "unit_of_measurement"
+
+    - entity_id: "sensor.last_perific_last_current_l1"
+      value_attribute: "state"
+      unit_attribute: "unit_of_measurement"
+
+    - entity_id: "sensor.last_perific_last_current_l2"
+      value_attribute: "state"
+      unit_attribute: "unit_of_measurement"
+
+    - entity_id: "sensor.last_perific_last_current_l3"
+      value_attribute: "state"
+      unit_attribute: "unit_of_measurement"
+
+    - entity_id: "sensor.gpn007772_current_phase_1"
+      value_attribute: "state"
+      unit_attribute: "unit_of_measurement"
+
+    - entity_id: "sensor.gpn007772_current_phase_2"
+      value_attribute: "state"
+      unit_attribute: "unit_of_measurement"
+
+    - entity_id: "sensor.gpn007772_current_phase_3"
+      value_attribute: "state"
+      unit_attribute: "unit_of_measurement"

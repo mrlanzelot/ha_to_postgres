@@ -1,0 +1,49 @@
+alias: Perific Load I1-I3
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - sensor.last_perific_last_current_l1
+      - sensor.last_perific_last_current_l2
+      - sensor.last_perific_last_current_l3
+conditions: []
+actions:
+  - action: mqtt.publish
+    metadata: {}
+    data:
+      qos: "1"
+      retain: false
+      topic: ha
+      payload: |
+        {
+          "entity_id": "{{ trigger.entity_id }}",
+          "attribute": "state",
+          "state": "{{ trigger.to_state.state }}",
+          "unit": "{{ trigger.to_state.attributes.unit_of_measurement }}",
+          "time": "{{ now() }}"
+        }
+mode: single
+
+alias: Zaptec Go 2 - Current Phase 1-3
+description: ""
+triggers:
+  - entity_id:
+      - sensor.gpn007772_current_phase_1
+      - sensor.gpn007772_current_phase_2
+      - sensor.gpn007772_current_phase_3
+    trigger: state
+actions:
+  - data:
+      topic: ha
+      qos: 1
+      retain: false
+      payload: |
+        {
+          "entity_id": "{{ trigger.entity_id }}",
+          "attribute": "state",
+          "state": "{{ trigger.to_state.state }}",
+          "unit": "{{ trigger.to_state.attributes.unit_of_measurement }}",
+          "time": "{{ trigger.to_state.last_changed }}"
+        }
+    action: mqtt.publish
+mode: single

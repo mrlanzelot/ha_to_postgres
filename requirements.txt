@@ -1,0 +1,6 @@
+requests
+psycopg
+python-dotenv
+PyYAML
+pydantic
+paho-mqtt
