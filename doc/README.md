@@ -1,158 +1,190 @@
-Below is a clean, minimal, beginner-friendly Python script that pulls a single sensor value from Home Assistant and stores it in PostgreSQL.
-This is the perfect first step before adding Airflow, Kafka, or DataHub.
+# Mini Zenseact Pipeline – Home Assistant → Event-Based Data Platform
 
-The script is short, safe, and easy to run on your Ubuntu machine.
+This project is a personal exploration of how to build a modern, event-driven data pipeline inspired by the data infrastructure patterns used in advanced automotive data platforms.  
+The system ingests telemetry from **Home Assistant**, publishes changes as events, processes them, stores metrics in **PostgreSQL**, and makes them available for **Grafana analytics** and later for **Kafka-based streaming**, **OpenLineage tracking**, and **DataHub metadata registry**.
 
-✅ 1. Requirements (install libraries)
+---
 
-Run these on your Ubuntu server:
+## 🚀 Goals
 
-pip install requests psycopg2-binary python-dotenv
+- Replace legacy **cron-based ingestion** with **real-time events**
+- Introduce **Kafka (KRaft)** for scalable event streaming
+- Use **Airflow 3 event-based DAG triggers**
+- Add **OpenTelemetry** for distributed tracing + structured logging
+- Track metadata and lineage using **OpenLineage**
+- Register datasets and pipelines into **DataHub**
+- Provide a small-scale but modern version of a **production-grade pipeline**
 
-✅ 2. Create a .env file
+---
 
-Store your Home Assistant token and DB credentials:
+## 🏗️ Current Architecture (Phase 1)
 
-HA_BASE_URL=https://mlha.lanzen.se:8123
-HA_TOKEN=your_long_lived_access_token
+Home Assistant
+│
+▼
+MQTT (Mosquitto)
+│
+▼
+ha_ingest.py → JSON event
+│
+▼
+PostgreSQL (table: ha_sensor_state)
+│
+▼
+Grafana dashboards
 
-PG_HOST=localhost
-PG_PORT=5432
-PG_DB=home_db
-PG_USER=postgres
-PG_PASSWORD=yourpassword
+---
 
+## 🛠️ Project Structure
 
-Generate HA token under:
-Profile → Security → Long-lived access tokens
+ha_to_postgres/
+│
+├── .env
+├── config.yaml
+├── requirements.txt
+├── Makefile
+│
+├── src/
+│ ├── ha_ingest.py # MQTT → Postgres ingestion
+│ ├── pipeline.py # Legacy ingestion (cron-based)
+│ ├── config_loader.py # YAML config loader
+│ ├── logging_config.py # OTEL logging + Python logging
+│ ├── ha_client.py # Home Assistant REST client
+│ ├── db.py # Postgres connection pool + inserts
+│ ├── models.py # Pydantic models for validation
+│ └── utils.py # Shared helpers
+│
+└── docs/
+├── architecture.png
+├── lineage_overview.md
+└── roadmap.md
 
-✅ 3. Create the PostgreSQL table (once)
-CREATE TABLE energy_raw (
-    id SERIAL PRIMARY KEY,
-    sensor_id TEXT NOT NULL,
-    value NUMERIC,
-    unit TEXT,
-    ts TIMESTAMPTZ NOT NULL DEFAULT NOW()
-);
+---
 
-✅ 4. Minimal Python Script: HA → Postgres
+## 🔧 Setup
 
-Save as: ha_to_postgres.py
+### 1. Clone the repository
+```bash
+git clone https://github.com/mrlanzelot/ha_to_postgres.git
+cd ha_to_postgres
 
-import requests
-import psycopg2
-import os
-from dotenv import load_dotenv
+2. Create virtual environment
+bash
+Kopiera kod
+python3 -m venv venv
+source venv/bin/activate
 
-load_dotenv()
-
-# Home Assistant config
-HA_BASE_URL = os.getenv("HA_BASE_URL")
-HA_TOKEN = os.getenv("HA_TOKEN")
-
-# PostgreSQL config
-PG_HOST = os.getenv("PG_HOST")
-PG_PORT = os.getenv("PG_PORT")
-PG_DB = os.getenv("PG_DB")
-PG_USER = os.getenv("PG_USER")
-PG_PASSWORD = os.getenv("PG_PASSWORD")
-
-# Example: read electricity consumption sensor
-SENSOR_ID = "sensor.energy_consumption"
-
-
-def get_sensor_value(sensor_id):
-    """Fetch a single sensor state from Home Assistant."""
-    url = f"{HA_BASE_URL}/api/states/{sensor_id}"
-
-    headers = {
-        "Authorization": f"Bearer {HA_TOKEN}",
-        "Content-Type": "application/json",
-    }
-
-    response = requests.get(url, headers=headers)
-    response.raise_for_status()
-
-    data = response.json()
-    value = data.get("state")
-    unit = data.get("attributes", {}).get("unit_of_measurement")
-
-    return value, unit
-
-
-def write_to_postgres(sensor_id, value, unit):
-    conn = psycopg2.connect(
-        host=PG_HOST,
-        port=PG_PORT,
-        dbname=PG_DB,
-        user=PG_USER,
-        password=PG_PASSWORD,
-    )
-    cur = conn.cursor()
-
-    cur.execute(
-        """
-        INSERT INTO energy_raw (sensor_id, value, unit)
-        VALUES (%s, %s, %s)
-        """,
-        (sensor_id, value, unit),
-    )
-
-    conn.commit()
-    conn.close()
+3. Install dependencies
+bash
+pip install -r requirements.txt
 
 
-if __name__ == "__main__":
-    value, unit = get_sensor_value(SENSOR_ID)
-    print(f"Fetched from HA: {value} {unit}")
+4. Configure environment
 
-    write_to_postgres(SENSOR_ID, value, unit)
-    print("Written to PostgreSQL.")
+Create .env:
 
-✅ 5. Run it
-Using the Makefile (recommended):
-```
-make install
+HA_BASE_URL=http://192.168.68.74:8123
+HA_TOKEN=your_long_lived_token_here
+POSTGRES_HOST=localhost
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=<postgres
+POSTGRES_DB=home
+MQTT_HOST=192.168.68.72
+
+5. Configure sensors (config.yaml)
+
+sensors:
+  - entity_id: sensor.smhi_temperature
+    value_attribute: state
+    unit_attribute: unit_of_measurement
+
+  - entity_id: sensor.last_perific_last_current_l1
+    value_attribute: state
+    unit_attribute: unit_of_measurement
+▶ Run the ingestion pipeline (event-based)
+bash
 make run
-```
-To test without writing to Postgres use DRY_RUN:
-```
-DRY_RUN=true make run
-```
+Starts:
 
-The script now writes structured logs to `logs/ha_ingest.log` and stdout. You can control verbosity with `LOG_LEVEL` (DEBUG/INFO/WARNING/ERROR).
+MQTT listener
 
+JSON decoding
 
-Expected output:
+Validation (Pydantic)
 
-Fetched from HA: 1.25 kWh
-Written to PostgreSQL.
+DB insertion
 
+Error handling
 
-And in PostgreSQL:
-
-SELECT * FROM energy_raw ORDER BY id DESC LIMIT 5;
-
-🔍 How this helps you learn
-
-This script teaches the fundamentals:
-
-Calling the Home Assistant REST API
-
-Parsing JSON
-
-Inserting into PostgreSQL
-
-Working with timestamps and units
-
-Creating a basic ETL flow
-
-
+🗄 Database Schema
+sql
 CREATE TABLE sensor_raw (
     id SERIAL PRIMARY KEY,
-    sensor_id TEXT NOT NULL,
-    metric TEXT NOT NULL,
-    value NUMERIC,
-    unit TEXT,
-    ts TIMESTAMPTZ
+    entity_id TEXT NOT NULL,
+    metric TEXT NOT NULL,      -- state, temperature, humidity, power, etc.    
+    value DOUBLE PRECISION,
+    unit TEXTtime, 
+    ts TIMESTAMPTZ NOT NULL,
 );
+📈 Grafana Integration
+Once PostgreSQL is populated, Grafana can visualize:
+
+Real-time sensor telemetry
+
+EV charger load & 3-phase distribution
+
+Weather patterns
+
+Energy consumption
+
+🛤 Roadmap
+✔ Phase 1 (Done)
+Local ingestion from MQTT
+
+Postgres storage
+
+YAML config
+
+Logging 
+
+GitHub repo creation
+
+🔜 Phase 2 — Event-Driven Pipeline
+Kafka with KRaft mode
+
+Kafka producers & consumers
+
+Replace MQTT → Postgres with:
+
+nginx
+Kopiera kod
+HA → MQTT → Kafka → Kafka Consumer → Postgres
+🔜 Phase 3 — Airflow 3 + OpenLineage
+Event-triggered DAGs
+
+Lineage tracking via OpenLineage
+
+Dataset registration
+
+🔜 Phase 4 — DataHub Integration
+Automatic dataset and lineage publishing
+
+Graph view of full HA-to-Grafana flow
+
+🔜 Phase 5 — Analytics layer
+Aggregated tables
+
+Materialized views
+
+Time-series optimizations
+
+🧪 Tests (future)
+Unit tests for ha_ingest
+
+Integration tests via docker-compose
+
+Kafka stream tests
+
+📫 Contact / Author
+Martin Lanzén
+Home automation, data engineering, and modern pipeline enthusiast.
