@@ -4,7 +4,7 @@ from logging.handlers import RotatingFileHandler
 
 
 DEFAULT_LOG_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "logs")
-DEFAULT_LOG_FILE = "ha_ingest.log"
+DEFAULT_LOG_FILE = "ha_to_postgres.log"
 
 _configured = False
 
