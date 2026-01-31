@@ -1,17 +1,53 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36" version="29.3.6">
   <diagram name="Sida-1" id="vmFjfD4xlJT7ZSx1670a">
-    <mxGraphModel dx="3280" dy="1839" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1393" dy="1839" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="m6dH4RYW5PiGkkALt4bM-3" edge="1" parent="1" source="pIKcAL1lHLem5k1Pkkdl-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="m6dH4RYW5PiGkkALt4bM-1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="pIKcAL1lHLem5k1Pkkdl-1" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="" vertex="1">
-          <mxGeometry height="80" width="80" x="100" y="320" as="geometry" />
+        <mxCell id="m6dH4RYW5PiGkkALt4bM-12" edge="1" parent="1" source="pIKcAL1lHLem5k1Pkkdl-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="m6dH4RYW5PiGkkALt4bM-10">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="m6dH4RYW5PiGkkALt4bM-1" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="" vertex="1">
-          <mxGeometry height="80" width="80" x="400" y="520" as="geometry" />
+        <mxCell id="m6dH4RYW5PiGkkALt4bM-16" edge="1" parent="1" source="pIKcAL1lHLem5k1Pkkdl-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="m6dH4RYW5PiGkkALt4bM-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pIKcAL1lHLem5k1Pkkdl-1" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="pve1&lt;br&gt;192.168.68.84" vertex="1">
+          <mxGeometry height="80" width="80" x="80" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="m6dH4RYW5PiGkkALt4bM-7" edge="1" parent="1" source="m6dH4RYW5PiGkkALt4bM-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="m6dH4RYW5PiGkkALt4bM-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="m6dH4RYW5PiGkkALt4bM-9" edge="1" parent="1" source="m6dH4RYW5PiGkkALt4bM-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="m6dH4RYW5PiGkkALt4bM-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="m6dH4RYW5PiGkkALt4bM-1" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="LXC&lt;br&gt;traefik&lt;div&gt;192.168.68.70&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="80" x="280" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="m6dH4RYW5PiGkkALt4bM-4" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="&lt;span style=&quot;color: rgba(0, 0, 0, 0); font-family: monospace; font-size: 0px; text-align: start; text-wrap-mode: nowrap;&quot;&gt;%3CmxGraphModel%3E%3Croot%3E%3CmxCell%20id%3D%220%22%2F%3E%3CmxCell%20id%3D%221%22%20parent%3D%220%22%2F%3E%3CmxCell%20id%3D%222%22%20parent%3D%221%22%20style%3D%22whiteSpace%3Dwrap%3Bhtml%3D1%3Baspect%3Dfixed%3B%22%20value%3D%22LXC%26lt%3Bbr%26gt%3Btraefik%26lt%3Bdiv%26gt%3B192.168.68.70%26lt%3B%2Fdiv%26gt%3B%22%20vertex%3D%221%22%3E%3CmxGeometry%20height%3D%2280%22%20width%3D%2280%22%20x%3D%22400%22%20y%3D%22520%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3C%2Froot%3E%3C%2FmxGraphModel%3E&lt;/span&gt;traefik&lt;br&gt;&lt;a href=&quot;https://doc.traefik.io/traefik/getting-started/install-traefik/&quot;&gt;doc&lt;/a&gt;" vertex="1">
+          <mxGeometry height="80" width="80" x="510" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="m6dH4RYW5PiGkkALt4bM-5" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="cloudflared&lt;br&gt;as a service&lt;br&gt;&lt;a href=&quot;https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/do-more-with-tunnels/local-management/as-a-service/linux/&quot;&gt;doc&lt;/a&gt;" vertex="1">
+          <mxGeometry height="80" width="80" x="510" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="m6dH4RYW5PiGkkALt4bM-10" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="VM&lt;br&gt;home assistant&lt;br&gt;192.168.68.88" vertex="1">
+          <mxGeometry height="80" width="80" x="280" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="m6dH4RYW5PiGkkALt4bM-20" edge="1" parent="1" source="m6dH4RYW5PiGkkALt4bM-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="m6dH4RYW5PiGkkALt4bM-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="m6dH4RYW5PiGkkALt4bM-22" edge="1" parent="1" source="m6dH4RYW5PiGkkALt4bM-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="m6dH4RYW5PiGkkALt4bM-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="m6dH4RYW5PiGkkALt4bM-13" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="VM&lt;br&gt;airflow&lt;br&gt;192.168.68.89" vertex="1">
+          <mxGeometry height="80" width="80" x="280" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="m6dH4RYW5PiGkkALt4bM-17" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="docker&lt;br&gt;airflow&lt;br&gt;0.0.0.0:8080" vertex="1">
+          <mxGeometry height="80" width="80" x="510" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="m6dH4RYW5PiGkkALt4bM-18" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="docker&lt;br&gt;ha_pipeline&lt;br&gt;0.0.0.0:8787" vertex="1">
+          <mxGeometry height="80" width="80" x="510" y="610" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
